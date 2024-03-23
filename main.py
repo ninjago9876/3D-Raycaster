@@ -24,14 +24,14 @@ _ = False
 W = True
 
 level = [
-    [W, W, W, W, W],
-    [W, _, _, W, W],
-    [W, _, W, _, W],
-    [W, _, _, _, W],
-    [W, _, _, _, W],
-    [W, W, _, W, W],
-    [W, _, _, _, W],
-    [W, W, W, W, W]
+    [W, W, W, W, W, W, W],
+    [W, _, _, W, _, _, W],
+    [W, _, W, _, _, W, W],
+    [W, _, _, _, _, _, W],
+    [W, _, _, _, W, _, W],
+    [W, W, _, W, _, _, W],
+    [W, _, _, _, _, _, W],
+    [W, W, W, W, W, W, W]
 ]
 
 rays = []
@@ -68,8 +68,8 @@ def draw_ray(x, y, hit: Hit):
 
 def draw_2d_debug():
     # Draw Level
-    for x in range(0, len(level)):
-        for y in range(0, len(level[0])):
+    for x in range(0, len(level) - 1):
+        for y in range(0, len(level[0]) - 1):
             if level[y][x]:
                 pg.draw.rect(screen, (0, 255, 0),
                              pg.Rect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE))
@@ -88,7 +88,7 @@ def draw_2d_debug():
 def update():
     global rays, columns
     handle_keys()
-    rays = cast_multiple_rays(px, py, dir, 60, WIDTH * 0.5, level)
+    rays = cast_multiple_rays(px, py, dir, 60, WIDTH * 0.1, level)
 
     columns = rays_to_columns(rays, 500)
 def draw():
@@ -114,7 +114,7 @@ def draw():
 
         pg.draw.rect(screen, (bright, 0, 0), pg.Rect(
             i * col_width, HEIGHT / 2 - col.height / 2,
-            col_width + 0.1, col.height))
+            col_width + 1, col.height))
         i -= 1
 
 
